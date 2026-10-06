@@ -1,0 +1,19 @@
+{
+  "name": "¿Alquilar o comprar?",
+  "short_name": "Alquilar o comprar",
+  "description": "Calculadora que compara alquilar y comprar vivienda año a año: hipoteca, entrada, impuestos, gastos, subida del alquiler y rentabilidad del dinero invertido.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#c0392b",
+  "theme_color": "#c0392b",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

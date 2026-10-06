@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Alquilar o comprar vivienda? — Calculadora 2026</title>
+<meta name="description" content="Calculadora para decidir si te sale mejor alquilar o comprar casa: hipoteca, entrada, impuestos, gastos, subida del alquiler y lo que rendiría invertir el dinero. Con el año en que comprar empieza a compensar.">
+<link rel="canonical" href="https://adrianezd.github.io/alquilar-o-comprar/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c0392b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="¿Alquilar o comprar vivienda?">
+<meta property="og:description" content="Descubre en qué año comprar empieza a compensar frente a alquilar.">
+<meta property="og:url" content="https://adrianezd.github.io/alquilar-o-comprar/">
+<meta property="og:locale" content="es_ES">
+<link rel="stylesheet" href="style.css">
+<style>:root { --accent: #c0392b; --comprar: #c0392b; --alquilar: #2b59c3; }</style>
+<!-- seo -->
+<meta name="keywords" content="alquilar o comprar, calculadora hipoteca, comprar piso, alquiler vs compra, compensa comprar casa">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="adrianezd">
+<meta property="og:site_name" content="¿Alquilar o comprar vivienda?">
+<meta property="og:image" content="https://adrianezd.github.io/alquilar-o-comprar/favicon.svg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="¿Alquilar o comprar vivienda?">
+<meta name="twitter:description" content="Calculadora para decidir si te sale mejor alquilar o comprar casa, con el año en que comprar empieza a compensar.">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"¿Alquilar o comprar vivienda?","url":"https://adrianezd.github.io/alquilar-o-comprar/","description":"Calculadora para decidir si te sale mejor alquilar o comprar casa, con el año en que comprar empieza a compensar.","inLanguage":"es","applicationCategory":"FinanceApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"author":{"@type":"Person","name":"adrianezd"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Qué gastos tiene en cuenta?","acceptedAnswer":{"@type":"Answer","text":"La entrada, los impuestos y gastos de la compra, la hipoteca, el IBI, la comunidad y el seguro, frente al alquiler y su subida anual."}},{"@type":"Question","name":"¿Por qué cuenta lo que rendiría el dinero invertido?","acceptedAnswer":{"@type":"Answer","text":"Porque si alquilas, la entrada que no pagas puede invertirse. Sin contarlo la comparación favorece siempre a comprar."}},{"@type":"Question","name":"¿Es un consejo financiero?","acceptedAnswer":{"@type":"Answer","text":"No. Es una estimación con los datos que pongas; para decidir conviene contrastarla."}}]}]}</script>
+<!-- /seo -->
+</head>
+<body>
+<header class="top">
+  <h1>🏠 ¿Alquilar o comprar?</h1>
+  <p class="sub">Compara cuánto patrimonio tendrías en cada caso</p>
+</header>
+<main>
+  <section class="tarjeta">
+    <h2>La casa</h2>
+    <div class="form">
+      <label>Precio de la vivienda, € <input id="precio" type="number" value="250000" step="5000"></label>
+      <label>Alquiler de una casa igual, €/mes <input id="alquiler" type="number" value="1000" step="50"></label>
+      <label>Años que vivirás en ella <input id="anyos" type="number" value="15" min="1" max="40"></label>
+    </div>
+  </section>
+  <section class="tarjeta">
+    <h2>La hipoteca</h2>
+    <div class="form">
+      <label>Entrada, % del precio <input id="entrada" type="number" value="20" min="0" max="100"></label>
+      <label>Impuestos y gastos de compra, % <input id="gastosCompra" type="number" value="10" step="0.5"></label>
+      <label>Tipo de interés anual, % <input id="interes" type="number" value="2.8" step="0.1"></label>
+      <label>Plazo, años <input id="plazo" type="number" value="30" min="5" max="40"></label>
+    </div>
+  </section>
+  <section class="tarjeta">
+    <h2>Supuestos</h2>
+    <div class="form">
+      <label>Revalorización de la casa, %/año <input id="revalor" type="number" value="3" step="0.5"></label>
+      <label>Subida del alquiler, %/año <input id="subida" type="number" value="3" step="0.5"></label>
+      <label>Rentabilidad si inviertes, %/año <input id="rent" type="number" value="5" step="0.5"></label>
+      <label>IBI, comunidad, seguro y arreglos, %/año <input id="mant" type="number" value="1" step="0.1"></label>
+    </div>
+  </section>
+
+  <section class="tarjeta" style="text-align:center">
+    <div class="etq" id="veredictoEtq">Resultado</div>
+    <div class="grande" id="veredicto">–</div>
+    <p class="sub" id="detalle"></p>
+  </section>
+  <section class="cifras">
+    <div class="tarjeta"><div class="etq">Cuota de hipoteca</div><b id="cuota">–</b><span>al mes</span></div>
+    <div class="tarjeta"><div class="etq">Dinero el primer día</div><b id="inicial">–</b><span>entrada y gastos</span></div>
+    <div class="tarjeta"><div class="etq">Comprar compensa</div><b id="cruce">–</b><span id="cruceTxt"></span></div>
+  </section>
+  <section class="tarjeta">
+    <h2>Patrimonio año a año</h2>
+    <svg id="grafica" viewBox="0 0 700 240" style="width:100%;height:auto" role="img" aria-label="Patrimonio comprando y alquilando"></svg>
+    <div style="display:flex;gap:16px;justify-content:center;font-size:.9rem">
+      <span><b style="color:var(--comprar)">━</b> Comprando</span><span><b style="color:var(--alquilar)">━</b> Alquilando e invirtiendo</span>
+    </div>
+  </section>
+  <section class="texto">
+    <h2>Cómo se calcula</h2>
+    <p>Comprando, tu patrimonio es lo que vale la casa menos lo que te queda de hipoteca. Alquilando, inviertes la entrada y los gastos de compra, y cada mes inviertes también la diferencia si el alquiler te sale más barato que la cuota más los gastos de propietario. Si el alquiler sale más caro, es quien compra el que invierte la diferencia.</p>
+    <p>No tiene en cuenta los gastos de vender la casa ni los impuestos sobre las ganancias. Es una comparación orientativa: cambia los supuestos para ver cuánto pesan.</p>
+  </section>
+</main>
+<footer>Hecho por adrianezd. No guarda ningún dato.</footer>
+<!-- red -->
+<section class="seo-faq" style="max-width:760px;margin:0 auto;padding:8px 16px;font-size:.92rem;opacity:.85"><h2 style="font-size:1rem">Preguntas frecuentes</h2><details><summary>¿Qué gastos tiene en cuenta?</summary><p>La entrada, los impuestos y gastos de la compra, la hipoteca, el IBI, la comunidad y el seguro, frente al alquiler y su subida anual.</p></details><details><summary>¿Por qué cuenta lo que rendiría el dinero invertido?</summary><p>Porque si alquilas, la entrada que no pagas puede invertirse. Sin contarlo la comparación favorece siempre a comprar.</p></details><details><summary>¿Es un consejo financiero?</summary><p>No. Es una estimación con los datos que pongas; para decidir conviene contrastarla.</p></details></section>
+<nav class="seo-red" style="max-width:760px;margin:0 auto;padding:8px 16px 28px;font-size:.85rem;opacity:.75;text-align:center">Más webs gratis: <a href="https://adrianezd.github.io/precio-luz-hoy/">Precio de la luz</a> · <a href="https://adrianezd.github.io/sueldo-neto/">Sueldo neto</a> · <a href="https://adrianezd.github.io/la-previa/">La Previa</a> · <a href="https://adrianezd.github.io/brisca-maldita/">Brisca Maldita</a> · <a href="https://adrianezd.github.io/embalses-hoy/">Embalses hoy</a> · <a href="https://adrianezd.github.io/calendario-laboral/">Calendario laboral</a> · <a href="https://adrianezd.github.io/alquilar-o-comprar/">Alquilar o comprar</a> · <a href="https://adrianezd.github.io/coste-viaje/">Coste del viaje</a> · <a href="https://adrianezd.github.io/pueblodle/">Pueblodle</a> · <a href="https://adrianezd.github.io/grid-laliga/">Grid LaLiga</a> · <a href="https://adrianezd.github.io/quien-lo-dijo/">Quién lo dijo</a> · <a href="https://adrianezd.github.io/el-mentiroso/">El Mentiroso</a></nav>
+<!-- /red -->
+<script src="script.js"></script>
+</body>
+</html>
